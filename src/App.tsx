@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Layout , PrivateRoute } from './modules/core';
+import { Layout, PrivateRoute } from './modules/core';
 import { RegistrationForm } from './modules/registration';
 import { LoginForm } from './modules/login';
 import { Profile } from './modules/profile';
-import styles from './App.module.scss';
 
 interface Props {
   appName: string;

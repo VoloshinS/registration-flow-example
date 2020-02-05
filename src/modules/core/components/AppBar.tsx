@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import Link from './Link';
 
@@ -39,6 +40,16 @@ const AppTopBar: FC<Props> = ({ title }) => {
               {title}
             </Link>
           </Typography>
+          <Button color="inherit">
+            <Link to="/registration" className={classes.link}>
+              Register
+            </Link>
+          </Button>
+          <Button color="inherit">
+            <Link to="/login" className={classes.link}>
+              Login
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

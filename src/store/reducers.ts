@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
 
-// import { moduleNameReducer } from '../modules/moduleName/redux';
-
-const moduleNameReducer = { moduleStateKey: (s: any = {}) => s };
+import { userReducer } from '../modules/core/redux';
 
 export default combineReducers({
-  ...moduleNameReducer,
+  ...userReducer,
 });

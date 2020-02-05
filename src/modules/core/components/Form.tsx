@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,6 +7,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import { User } from '../redux/types';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,10 +33,25 @@ const useStyles = makeStyles(theme => ({
 interface Props {
   title: string;
   buttonLabel: string;
+  onSubmit: (user: User) => void;
 }
 
-const Form: FC<Props> = ({ title, buttonLabel }) => {
+const Form: FC<Props> = ({ title, buttonLabel, onSubmit }) => {
   const classes = useStyles();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsernameChange = useCallback(e => setUsername(e.target.value), []);
+  const handlePasswordChange = useCallback(e => setPassword(e.target.value), []);
+
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+
+      onSubmit({ username, password });
+    },
+    [username, password, onSubmit]
+  );
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,7 +63,7 @@ const Form: FC<Props> = ({ title, buttonLabel }) => {
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -56,6 +73,8 @@ const Form: FC<Props> = ({ title, buttonLabel }) => {
             label="Username"
             name="username"
             autoComplete="username"
+            onChange={handleUsernameChange}
+            value={username}
             autoFocus
           />
           <TextField
@@ -67,6 +86,8 @@ const Form: FC<Props> = ({ title, buttonLabel }) => {
             label="Password"
             type="password"
             id="password"
+            onChange={handlePasswordChange}
+            value={password}
             autoComplete="current-password"
           />
           <Button

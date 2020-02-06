@@ -1,1 +1,1 @@
-export { Layout, Link, Spinner, Form, PrivateRoute } from './components';
+export { Layout, AppBar, Link, Spinner, Form, PrivateRoute } from './components';

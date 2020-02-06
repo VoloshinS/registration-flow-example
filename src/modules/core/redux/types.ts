@@ -18,7 +18,7 @@ export interface User {
 export interface UserState {
   user?: Partial<User> | null;
   isAuthorized: boolean;
-  error?: string;
+  error?: string | null;
 }
 
 export interface AddUser {

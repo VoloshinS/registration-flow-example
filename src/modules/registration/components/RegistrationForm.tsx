@@ -1,12 +1,13 @@
 import React, { FC, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Form } from '../../core';
-import { addUser } from '../../core/redux';
+import { addUser, getError } from '../../core/redux';
 import { User } from '../../core/redux/types';
 
 const RegistrationForm: FC = () => {
   const dispatch = useDispatch();
+  const error = useSelector(getError);
 
   const handleSubmit = useCallback(
     (user: User) => {
@@ -15,7 +16,7 @@ const RegistrationForm: FC = () => {
     [dispatch]
   );
 
-  return <Form title="Registration" buttonLabel="Register" onSubmit={handleSubmit} />;
+  return <Form title="Registration" buttonLabel="Register" onSubmit={handleSubmit} error={error} />;
 };
 
 export default RegistrationForm;

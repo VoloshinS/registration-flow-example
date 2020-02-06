@@ -29,6 +29,7 @@ export default function reducer(
       return {
         ...state,
         isAuthorized: true,
+        error: null
       };
     case SIGN_IN_USER_FAILURE:
     case ADD_USER_FAILURE:

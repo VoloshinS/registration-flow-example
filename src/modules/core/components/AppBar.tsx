@@ -43,7 +43,6 @@ const AppTopBar: FC<Props> = ({ title, isAuthorized, onLogout }) => {
             </Link>
           </Typography>
           {isAuthorized ? (
-
             <Button color="inherit" onClick={onLogout}>
               Logout
             </Button>

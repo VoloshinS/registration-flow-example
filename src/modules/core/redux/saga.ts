@@ -1,4 +1,4 @@
-import { call, takeEvery, all, put } from 'redux-saga/effects';
+import { call, take, delay, takeEvery, all, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
 import {
@@ -31,6 +31,7 @@ function* signInUser(action: AddUser) {
     yield put(push('/'));
   } catch (e) {
     yield put(signInUserFailure(e.message));
+    return e;
   }
 }
 
@@ -47,7 +48,19 @@ function* watchCreate() {
 }
 
 function* watchLogin() {
-  yield takeEvery(SIGN_IN_USER, signInUser);
+  let i = 0;
+
+  while (true) {
+    if (i < 3) {
+      const action = yield take(SIGN_IN_USER);
+      const signInResult = yield call(signInUser, action);
+
+      if (signInResult instanceof Error) i++;
+    } else {
+      yield put(signInUserFailure('You are blocked for 1 minute!'));
+      i = yield delay(60000, 0);
+    }
+  }
 }
 
 function* watchDelete() {

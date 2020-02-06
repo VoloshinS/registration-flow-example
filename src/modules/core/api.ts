@@ -1,4 +1,4 @@
-import { find } from 'lodash';
+import { find, findIndex } from 'lodash';
 import { User } from './redux/types';
 
 const getUsers = () => {
@@ -35,5 +35,31 @@ export const loginUser = (user: User) => {
     throw new Error('Wrong password');
   }
 
-  return user;
+  return userInDb;
+};
+
+export const removeUser = (username: string) => {
+  const users = getUsers();
+  const userIndex = findIndex(users, { username });
+
+  setUsers([...users.slice(0, userIndex), ...users.slice(userIndex + 1)]);
+
+  return username;
+};
+
+export const changeUser = ({ username, description }: User) => {
+  const users = getUsers();
+  const userIndex = findIndex(users, { username });
+
+  setUsers([
+    ...users.slice(0, userIndex),
+    {
+      ...users[userIndex],
+      username,
+      description,
+    },
+    ...users.slice(userIndex + 1),
+  ]);
+
+  return username;
 };

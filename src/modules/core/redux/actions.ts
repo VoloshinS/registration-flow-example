@@ -19,9 +19,10 @@ export function addUser(user: User): UserActionTypes {
   };
 }
 
-export function addUserSuccess(): UserActionTypes {
+export function addUserSuccess(user: User): UserActionTypes {
   return {
     type: ADD_USER_SUCCESS,
+    payload: user,
   };
 }
 
@@ -39,9 +40,10 @@ export function signInUser(user: User): UserActionTypes {
   };
 }
 
-export function signInUserSuccess(): UserActionTypes {
+export function signInUserSuccess(user: User): UserActionTypes {
   return {
     type: SIGN_IN_USER_SUCCESS,
+    payload: user,
   };
 }
 
@@ -58,14 +60,14 @@ export function signOutUser(): UserActionTypes {
   };
 }
 
-export function updateUser(id: number, { username, description }: Partial<User>): UserActionTypes {
+export function updateUser({ username, description }: Partial<User>): UserActionTypes {
   return {
     type: UPDATE_USER,
     payload: { username, description },
   };
 }
 
-export function deleteUser(username: number): UserActionTypes {
+export function deleteUser(username: string): UserActionTypes {
   return {
     type: DELETE_USER,
     payload: username,

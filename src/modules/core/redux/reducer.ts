@@ -22,14 +22,14 @@ export default function reducer(
     case ADD_USER:
       return {
         ...state,
-        user: action.payload,
       };
     case SIGN_IN_USER_SUCCESS:
     case ADD_USER_SUCCESS:
       return {
         ...state,
+        user: action.payload,
         isAuthorized: true,
-        error: null
+        error: null,
       };
     case SIGN_IN_USER_FAILURE:
     case ADD_USER_FAILURE:

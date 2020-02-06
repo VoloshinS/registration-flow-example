@@ -28,6 +28,7 @@ export interface AddUser {
 
 interface AddUserSuccess {
   type: typeof ADD_USER_SUCCESS;
+  payload: User;
 }
 
 interface AddUserFailure {
@@ -42,6 +43,7 @@ export interface SignInUser {
 
 interface SignInUserSuccess {
   type: typeof SIGN_IN_USER_SUCCESS;
+  payload: User;
 }
 
 interface SignInUserFailure {
@@ -59,7 +61,7 @@ export interface SignOutUser {
 
 export interface DeleteUser {
   type: typeof DELETE_USER;
-  payload: number;
+  payload: string;
 }
 
 export type UserActionTypes =

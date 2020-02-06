@@ -1,14 +1,23 @@
 import { call, takeEvery, all, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
-import { ADD_USER, AddUser, SIGN_IN_USER } from './types';
+import {
+  ADD_USER,
+  SIGN_IN_USER,
+  DELETE_USER,
+  UPDATE_USER,
+  User,
+  AddUser,
+  DeleteUser,
+  UpdateUser,
+} from './types';
 import { addUserSuccess, addUserFailure, signInUserSuccess, signInUserFailure } from './actions';
-import { createUser, loginUser } from '../api';
+import { createUser, loginUser, removeUser, changeUser } from '../api';
 
 function* addUser(action: AddUser) {
   try {
-    yield call(createUser, action.payload);
-    yield put(addUserSuccess());
+    const user: User = yield call(createUser, action.payload);
+    yield put(addUserSuccess(user));
     yield put(push('/'));
   } catch (e) {
     yield put(addUserFailure(e.message));
@@ -17,12 +26,20 @@ function* addUser(action: AddUser) {
 
 function* signInUser(action: AddUser) {
   try {
-    yield call(loginUser, action.payload);
-    yield put(signInUserSuccess());
+    const user: User = yield call(loginUser, action.payload);
+    yield put(signInUserSuccess(user));
     yield put(push('/'));
   } catch (e) {
     yield put(signInUserFailure(e.message));
   }
+}
+
+function* deleteUser(action: DeleteUser) {
+  yield call(removeUser, action.payload);
+}
+
+function* updateUser(action: UpdateUser) {
+  yield call(changeUser, action.payload);
 }
 
 function* watchCreate() {
@@ -33,10 +50,14 @@ function* watchLogin() {
   yield takeEvery(SIGN_IN_USER, signInUser);
 }
 
-// function* watchLogout() {
-//   yield takeEvery(SIGN_OUT_USER, addUser);
-// }
+function* watchDelete() {
+  yield takeEvery(DELETE_USER, deleteUser);
+}
+
+function* watchUpdate() {
+  yield takeEvery(UPDATE_USER, updateUser);
+}
 
 export default function* userSaga() {
-  yield all([watchCreate(), watchLogin()]);
+  yield all([watchCreate(), watchLogin(), watchDelete(), watchUpdate()]);
 }

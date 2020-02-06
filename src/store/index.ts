@@ -1,4 +1,4 @@
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -7,7 +7,7 @@ import { routerMiddleware } from 'connected-react-router';
 import creteRootReducer from './reducers';
 import saga from './sagas';
 
-export const history = createBrowserHistory();
+export const history = createHashHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 

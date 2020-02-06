@@ -3,8 +3,6 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 
-import AppBar from './AppBar';
-
 const useStyles = makeStyles(() =>
   createStyles({
     container: {
@@ -16,15 +14,13 @@ const useStyles = makeStyles(() =>
 
 interface Props {
   children: ReactNode;
-  title: string;
 }
 
-const Layout: FC<Props> = ({ children, title }) => {
+const Layout: FC<Props> = ({ children }) => {
   const classes = useStyles();
 
   return (
     <Fragment>
-      <AppBar title={title} />
       <CssBaseline />
       <div className={classes.container}>
         <Container maxWidth="md">{children}</Container>

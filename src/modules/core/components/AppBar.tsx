@@ -26,9 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   title: ReactNode;
+  isAuthorized: boolean;
+  onLogout: () => void;
 }
 
-const AppTopBar: FC<Props> = ({ title }) => {
+const AppTopBar: FC<Props> = ({ title, isAuthorized, onLogout }) => {
   const classes = useStyles();
 
   return (
@@ -40,16 +42,25 @@ const AppTopBar: FC<Props> = ({ title }) => {
               {title}
             </Link>
           </Typography>
-          <Button color="inherit">
-            <Link to="/registration" className={classes.link}>
-              Register
-            </Link>
-          </Button>
-          <Button color="inherit">
-            <Link to="/login" className={classes.link}>
-              Login
-            </Link>
-          </Button>
+          {isAuthorized ? (
+
+            <Button color="inherit" onClick={onLogout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button color="inherit">
+                <Link to="/registration" className={classes.link}>
+                  Register
+                </Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/login" className={classes.link}>
+                  Login
+                </Link>
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </div>

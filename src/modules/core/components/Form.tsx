@@ -33,10 +33,11 @@ const useStyles = makeStyles(theme => ({
 interface Props {
   title: string;
   buttonLabel: string;
+  error?: string;
   onSubmit: (user: User) => void;
 }
 
-const Form: FC<Props> = ({ title, buttonLabel, onSubmit }) => {
+const Form: FC<Props> = ({ title, buttonLabel, onSubmit, error }) => {
   const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -90,6 +91,7 @@ const Form: FC<Props> = ({ title, buttonLabel, onSubmit }) => {
             value={password}
             autoComplete="current-password"
           />
+          {error && <div>{error}</div>}
           <Button
             type="submit"
             fullWidth

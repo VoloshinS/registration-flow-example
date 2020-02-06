@@ -1,19 +1,31 @@
-import React, { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { FC, useCallback } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Layout, PrivateRoute } from './modules/core';
+import { Layout, PrivateRoute, AppBar } from './modules/core';
 import { RegistrationForm } from './modules/registration';
 import { LoginForm } from './modules/login';
 import { Profile } from './modules/profile';
+import { history } from './store';
+import { getIsAuthorized, signOutUser } from './modules/core/redux';
 
 interface Props {
   appName: string;
 }
 
 const App: FC<Props> = ({ appName }) => {
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector(getIsAuthorized);
+
+  const handleLogout = useCallback(() => {
+    dispatch(signOutUser());
+  }, [dispatch]);
+
   return (
-    <Router>
-      <Layout title={appName}>
+    <ConnectedRouter history={history}>
+      <AppBar title={appName} isAuthorized={isAuthorized} onLogout={handleLogout} />
+      <Layout>
         <Switch>
           <Route path="/registration">
             <RegistrationForm />
@@ -26,7 +38,7 @@ const App: FC<Props> = ({ appName }) => {
           </PrivateRoute>
         </Switch>
       </Layout>
-    </Router>
+    </ConnectedRouter>
   );
 };
 

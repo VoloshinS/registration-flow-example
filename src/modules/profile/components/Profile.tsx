@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme =>
     container: {
       marginTop: theme.spacing(8),
     },
+    field: {
+      marginTop: theme.spacing(2),
+    },
     buttonContainer: {
       display: 'flex',
       justifyContent: 'space-evenly',
@@ -26,7 +29,7 @@ const Profile: FC = () => {
   const user = useSelector(getUser);
   const [description, setDescription] = useState(user.description);
 
-  const styles = useStyles();
+  const classes = useStyles();
   const handleSubmit = useCallback(
     e => {
       e.preventDefault();
@@ -48,11 +51,12 @@ const Profile: FC = () => {
   }, [user, dispatch]);
 
   return (
-    <div className={styles.container}>
+    <div className={classes.container}>
       <CssBaseline />
       <Typography variant="h4">{user.username}</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
+          className={classes.field}
           label="Description"
           id="description"
           fullWidth
@@ -61,7 +65,7 @@ const Profile: FC = () => {
           onChange={handleChangeDesc}
           value={description}
         />
-        <div className={styles.buttonContainer}>
+        <div className={classes.buttonContainer}>
           <Button type="button" variant="contained" color="secondary" onClick={handleDelete}>
             Delete Profile
           </Button>

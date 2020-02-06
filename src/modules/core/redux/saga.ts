@@ -1,15 +1,15 @@
 import { call, takeEvery, all, put } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 
-import { ADD_USER, User } from './types';
+import { ADD_USER, AddUser } from './types';
 import { addUserSuccess, addUserFailure } from './actions';
-import { saveUser } from '../api';
+import { createUser } from '../api';
 
-function* addUser(...attrs: any[]) {
+function* addUser(action: AddUser) {
   try {
-    console.log(attrs);
-    const data: User = yield call(saveUser, {username: '', password: 'sadf'});
-
-    yield put(addUserSuccess(data));
+    yield call(createUser, action.payload);
+    yield put(addUserSuccess());
+    yield put(push('/'));
   } catch (e) {
     yield put(addUserFailure(e.message));
   }
@@ -19,6 +19,6 @@ function* watchUsers() {
   yield takeEvery(ADD_USER, addUser);
 }
 
-export default function* userSaga(user: User) {
+export default function* userSaga() {
   yield all([watchUsers()]);
 }

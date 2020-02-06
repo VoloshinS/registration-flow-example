@@ -20,6 +20,8 @@
     "@types/redux-saga": "^0.10.5",
     "@types/webpack-env": "^1.15.1",
     "axios": "^0.19.2",
+    "connected-react-router": "^6.6.1",
+    "history": "^4.10.1",
     "lodash": "^4.17.15",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

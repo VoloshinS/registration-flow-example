@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 
 import { Layout, PrivateRoute } from './modules/core';
 import { RegistrationForm } from './modules/registration';
 import { LoginForm } from './modules/login';
 import { Profile } from './modules/profile';
+import { history } from './store';
 
 interface Props {
   appName: string;
@@ -12,7 +14,7 @@ interface Props {
 
 const App: FC<Props> = ({ appName }) => {
   return (
-    <Router>
+    <ConnectedRouter history={history}>
       <Layout title={appName}>
         <Switch>
           <Route path="/registration">
@@ -26,7 +28,7 @@ const App: FC<Props> = ({ appName }) => {
           </PrivateRoute>
         </Switch>
       </Layout>
-    </Router>
+    </ConnectedRouter>
   );
 };
 

@@ -1,4 +1,6 @@
-import { find, findIndex } from 'lodash';
+import { find, omit, findIndex } from 'lodash';
+import md5 from 'md5';
+
 import { User } from './redux/types';
 
 const getUsers = () => {
@@ -18,9 +20,9 @@ export const createUser = (user: User) => {
     throw new Error('Already exist');
   }
 
-  setUsers([...users, user]);
+  setUsers([...users, { ...user, password: md5(user.password!) }]);
 
-  return user;
+  return omit(user, ['password']);
 };
 
 export const loginUser = (user: User) => {
@@ -31,11 +33,11 @@ export const loginUser = (user: User) => {
     throw new Error('User does not exist');
   }
 
-  if (userInDb.password !== user.password) {
+  if (userInDb.password !== md5(user.password!)) {
     throw new Error('Wrong password');
   }
 
-  return userInDb;
+  return omit(userInDb, ['password']);
 };
 
 export const removeUser = (username: string) => {

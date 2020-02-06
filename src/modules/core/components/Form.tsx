@@ -1,4 +1,5 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, ReactNode } from 'react';
+import { useFormik } from 'formik';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.light,
   },
   form: {
     width: '100%',
@@ -28,54 +29,53 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  errorMessage: {
+    color: theme.palette.error.main,
+  }
 }));
 
 interface Props {
   title: string;
   buttonLabel: string;
   error?: string;
+  icon?: ReactNode;
+  validationSchema: any;
   onSubmit: (user: User) => void;
 }
 
-const Form: FC<Props> = ({ title, buttonLabel, onSubmit, error }) => {
+const Form: FC<Props> = ({ title, buttonLabel, onSubmit, validationSchema, error, icon }) => {
   const classes = useStyles();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleUsernameChange = useCallback(e => setUsername(e.target.value), []);
-  const handlePasswordChange = useCallback(e => setPassword(e.target.value), []);
-
-  const handleSubmit = useCallback(
-    e => {
-      e.preventDefault();
-
-      onSubmit({ username, password });
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
     },
-    [username, password, onSubmit]
-  );
+    validationSchema,
+    onSubmit,
+  });
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <Avatar className={classes.avatar}>{icon ? icon : <LockOutlinedIcon />}</Avatar>
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             id="username"
-            label="Username"
             name="username"
+            label="Username"
+            error={!!formik.errors.username}
+            helperText={formik.errors.username}
             autoComplete="username"
-            onChange={handleUsernameChange}
-            value={username}
+            onChange={formik.handleChange}
+            value={formik.values.username}
             autoFocus
           />
           <TextField
@@ -83,15 +83,17 @@ const Form: FC<Props> = ({ title, buttonLabel, onSubmit, error }) => {
             margin="normal"
             required
             fullWidth
+            id="password"
+            type="password"
             name="password"
             label="Password"
-            type="password"
-            id="password"
-            onChange={handlePasswordChange}
-            value={password}
+            error={!!formik.errors.password}
+            helperText={formik.errors.password}
+            onChange={formik.handleChange}
+            value={formik.values.password}
             autoComplete="current-password"
           />
-          {error && <div>{error}</div>}
+          {error && <div className={classes.errorMessage}>{error}</div>}
           <Button
             type="submit"
             fullWidth

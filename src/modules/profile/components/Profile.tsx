@@ -57,6 +57,7 @@ const Profile: FC = () => {
           id="description"
           fullWidth
           multiline
+          autoFocus
           onChange={handleChangeDesc}
           value={description}
         />

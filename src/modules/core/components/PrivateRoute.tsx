@@ -2,13 +2,15 @@ import React, { FC, ReactNode, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
+import { getIsAuthorized } from '../redux';
+
 interface Props {
   children: ReactNode;
   path: string;
 }
 
 const PrivateRoute: FC<Props> = ({ children, ...rest }) => {
-  const isAuthorized = false; //useSelector(state => state);
+  const isAuthorized = useSelector(getIsAuthorized);
   const render = useCallback(
     ({ location }) =>
       isAuthorized ? (

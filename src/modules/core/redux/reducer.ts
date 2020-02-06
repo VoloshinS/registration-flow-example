@@ -17,11 +17,11 @@ export default function reducer(
     case ADD_USER:
       return {
         ...state,
+        user: action.payload,
       };
     case ADD_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
         isAuthorized: true,
       };
     case ADD_USER_FAILURE:
@@ -35,7 +35,7 @@ export default function reducer(
       return {
         ...state,
         isAuthorized: false,
-        user: null
+        user: null,
       };
     case UPDATE_USER:
       return {

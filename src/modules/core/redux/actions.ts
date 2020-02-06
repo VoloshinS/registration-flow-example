@@ -11,6 +11,7 @@ import {
 export function addUser(user: User): UserActionTypes {
   return {
     type: ADD_USER,
+    payload: user,
   };
 }
 
@@ -18,6 +19,12 @@ export function addUserSuccess(user: User): UserActionTypes {
   return {
     type: ADD_USER_SUCCESS,
     payload: user,
+  };
+}
+
+export function addUserSuccess(): UserActionTypes {
+  return {
+    type: ADD_USER_SUCCESS,
   };
 }
 

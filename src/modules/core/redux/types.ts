@@ -17,12 +17,13 @@ export interface UserState {
 }
 
 interface AddUser {
+export interface AddUser {
   type: typeof ADD_USER;
+  payload: User;
 }
 
 interface AddUserSuccess {
   type: typeof ADD_USER_SUCCESS;
-  payload: User;
 }
 
 interface AddUserFailure {

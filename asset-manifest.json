@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/registration-flow-example/static/css/main.c8396fb1.chunk.css",
+    "main.js": "/registration-flow-example/static/js/main.0de678cf.chunk.js",
+    "main.js.map": "/registration-flow-example/static/js/main.0de678cf.chunk.js.map",
+    "runtime-main.js": "/registration-flow-example/static/js/runtime-main.07ddb4a0.js",
+    "runtime-main.js.map": "/registration-flow-example/static/js/runtime-main.07ddb4a0.js.map",
+    "static/js/2.bb2f129e.chunk.js": "/registration-flow-example/static/js/2.bb2f129e.chunk.js",
+    "static/js/2.bb2f129e.chunk.js.map": "/registration-flow-example/static/js/2.bb2f129e.chunk.js.map",
+    "index.html": "/registration-flow-example/index.html",
+    "precache-manifest.2c6ff57bdebaefe8c3eb39e278d7bedc.js": "/registration-flow-example/precache-manifest.2c6ff57bdebaefe8c3eb39e278d7bedc.js",
+    "service-worker.js": "/registration-flow-example/service-worker.js",
+    "static/css/main.c8396fb1.chunk.css.map": "/registration-flow-example/static/css/main.c8396fb1.chunk.css.map",
+    "static/js/2.bb2f129e.chunk.js.LICENSE": "/registration-flow-example/static/js/2.bb2f129e.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.07ddb4a0.js",
+    "static/js/2.bb2f129e.chunk.js",
+    "static/css/main.c8396fb1.chunk.css",
+    "static/js/main.0de678cf.chunk.js"
+  ]
+}

@@ -1,7 +1,5 @@
 import { omit } from 'lodash/fp';
 
-import { User } from '../interfaces';
-
 export const omitPassword = omit(['password']);
 
 export const getUsers = () => {

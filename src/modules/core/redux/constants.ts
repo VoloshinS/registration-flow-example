@@ -1,4 +1,4 @@
-import { AsyncStateSlice } from '../interfaces';
+import { AsyncStateSlice } from './interfaces';
 
 export const initialAsyncState: AsyncStateSlice<null> = {
   loading: false,

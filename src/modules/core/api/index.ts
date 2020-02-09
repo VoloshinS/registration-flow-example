@@ -19,24 +19,15 @@ export const createUser = (user: User) => {
   return omitPassword(newUser);
 };
 
-export const changeUser = ({ username, description }: Partial<User>) => {
+export const changeUser = (userPatch: Partial<User>) => {
   const users = getUsers();
-  const userIndex = findIndex(users, { username });
+  const userIndex = findIndex(users, { username: userPatch.username });
   const updatedUser = {
     ...users[userIndex],
-    username,
-    description,
+    ...userPatch,
   };
 
-  setUsers<User>([
-    ...users.slice(0, userIndex),
-    {
-      ...users[userIndex],
-      username,
-      description,
-    },
-    ...users.slice(userIndex + 1),
-  ]);
+  setUsers<User>([...users.slice(0, userIndex), updatedUser, ...users.slice(userIndex + 1)]);
 
   return omitPassword(updatedUser);
 };

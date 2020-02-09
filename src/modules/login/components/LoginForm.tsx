@@ -3,8 +3,8 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Form } from '../../core';
-import { signInUser, getError } from '../../core/redux';
-import { User } from '../../core/redux/types';
+import { signIn, getAuthError } from '../../core/redux/auth.duck';
+import { User } from '../../core/interfaces';
 
 export const SignUpSchema = Yup.object().shape({
   username: Yup.string()
@@ -16,11 +16,11 @@ export const SignUpSchema = Yup.object().shape({
 
 const LoginForm: FC = () => {
   const dispatch = useDispatch();
-  const error = useSelector(getError);
+  const authError = useSelector(getAuthError);
 
   const handleSubmit = useCallback(
     (user: User) => {
-      dispatch(signInUser(user));
+      dispatch(signIn.request(user));
     },
     [dispatch]
   );
@@ -30,7 +30,7 @@ const LoginForm: FC = () => {
       title="Sign In"
       buttonLabel="Login"
       onSubmit={handleSubmit}
-      error={error}
+      error={authError}
       validationSchema={SignUpSchema}
     />
   );

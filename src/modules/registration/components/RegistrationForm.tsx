@@ -4,8 +4,8 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import * as Yup from 'yup';
 
 import { Form } from '../../core';
-import { addUser, getError } from '../../core/redux';
-import { User } from '../../core/redux/types';
+import { addUser, getUserError } from '../../core/redux/user.duck';
+import { User } from '../../core/interfaces';
 
 export const RegistrationSchema = Yup.object().shape({
   username: Yup.string()
@@ -20,11 +20,11 @@ export const RegistrationSchema = Yup.object().shape({
 
 const RegistrationForm: FC = () => {
   const dispatch = useDispatch();
-  const error = useSelector(getError);
+  const error = useSelector(getUserError);
 
   const handleSubmit = useCallback(
     (user: User) => {
-      dispatch(addUser(user));
+      dispatch(addUser.request(user));
     },
     [dispatch]
   );

@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { User } from '../redux/types';
+import { User } from '../interfaces';
 
 const useStyles = makeStyles(theme => ({
   paper: {

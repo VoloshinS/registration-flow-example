@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -6,7 +6,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { getUser, deleteUser, updateUser } from '../../core/redux/user.duck';
+import { User } from '../../core/interfaces';
+import { getUser, deleteUser } from '../../core/redux/user.duck';
+import useProfileForm from '../hooks/useProfileForm';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -25,26 +27,12 @@ const useStyles = makeStyles(theme =>
 );
 
 const Profile: FC = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const [description, setDescription] = useState(user.description);
-
-  const classes = useStyles();
-  const handleSubmit = useCallback(
-    e => {
-      e.preventDefault();
-      dispatch(
-        updateUser.request({
-          ...user,
-          description,
-        })
-      );
-    },
-    [dispatch, user, description]
-  );
-  const handleChangeDesc = useCallback(e => {
-    setDescription(e.target.value);
-  }, []);
+  const formik = useProfileForm<User>({
+    initialValues: user,
+  });
 
   const handleDelete = useCallback(() => {
     dispatch(deleteUser.request(user.username));
@@ -54,7 +42,7 @@ const Profile: FC = () => {
     <div className={classes.container}>
       <CssBaseline />
       <Typography variant="h4">{user.username}</Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <TextField
           className={classes.field}
           label="Description"
@@ -62,8 +50,8 @@ const Profile: FC = () => {
           fullWidth
           multiline
           autoFocus
-          onChange={handleChangeDesc}
-          value={description}
+          onChange={formik.handleChange}
+          value={formik.values.description}
         />
         <div className={classes.buttonContainer}>
           <Button type="button" variant="contained" color="secondary" onClick={handleDelete}>

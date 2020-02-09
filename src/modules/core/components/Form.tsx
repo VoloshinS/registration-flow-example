@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { useFormik } from 'formik';
+import { FormikProps } from 'formik';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   errorMessage: {
     color: theme.palette.error.main,
-  }
+  },
 }));
 
 interface Props {
@@ -39,20 +39,11 @@ interface Props {
   buttonLabel: string;
   error?: string;
   icon?: ReactNode;
-  validationSchema: any;
-  onSubmit: (user: User) => void;
+  formik: FormikProps<User>;
 }
 
-const Form: FC<Props> = ({ title, buttonLabel, onSubmit, validationSchema, error, icon }) => {
+const Form: FC<Props> = ({ title, buttonLabel, formik, error, icon }) => {
   const classes = useStyles();
-  const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    validationSchema,
-    onSubmit,
-  });
 
   return (
     <Container component="main" maxWidth="xs">

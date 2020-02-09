@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { getUser, deleteUser, updateUser } from '../../core/redux';
+import { getUser, deleteUser, updateUser } from '../../core/redux/user.duck';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -34,7 +34,7 @@ const Profile: FC = () => {
     e => {
       e.preventDefault();
       dispatch(
-        updateUser({
+        updateUser.request({
           ...user,
           description,
         })
@@ -47,7 +47,7 @@ const Profile: FC = () => {
   }, []);
 
   const handleDelete = useCallback(() => {
-    dispatch(deleteUser(user.username));
+    dispatch(deleteUser.request(user.username));
   }, [user, dispatch]);
 
   return (

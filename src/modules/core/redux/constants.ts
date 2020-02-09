@@ -1,8 +1,7 @@
-import { UserState } from './types';
+import { AsyncStateSlice } from '../interfaces';
 
-export const USER_REDUCER_KEY = 'userState';
-
-export const initialState: UserState = {
-  user: null,
-  isAuthorized: false,
+export const initialAsyncState: AsyncStateSlice<null> = {
+  loading: false,
+  data: null,
+  error: null,
 };

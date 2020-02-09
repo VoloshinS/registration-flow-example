@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-import { getIsAuthorized } from '../redux';
+import { getIsAuthorized } from '../redux/auth.duck';
 
 interface Props {
   children: ReactNode;

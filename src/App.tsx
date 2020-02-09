@@ -8,7 +8,7 @@ import { RegistrationForm } from './modules/registration';
 import { LoginForm } from './modules/login';
 import { Profile } from './modules/profile';
 import { history } from './store';
-import { getIsAuthorized, signOutUser } from './modules/core/redux';
+import { getIsAuthorized, signOut } from './modules/core/redux/auth.duck';
 
 interface Props {
   appName: string;
@@ -19,7 +19,7 @@ const App: FC<Props> = ({ appName }) => {
   const isAuthorized = useSelector(getIsAuthorized);
 
   const handleLogout = useCallback(() => {
-    dispatch(signOutUser());
+    dispatch(signOut.request());
   }, [dispatch]);
 
   return (

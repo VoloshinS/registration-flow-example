@@ -16,6 +16,7 @@ export default function useProfileForm<T>({ initialValues }: { initialValues: T 
   const formik = useFormik({
     initialValues,
     onSubmit,
+    enableReinitialize: true,
   });
 
   return formik;

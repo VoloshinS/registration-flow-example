@@ -1,5 +1,4 @@
 import { find, findIndex } from 'lodash';
-import { omit } from 'lodash/fp';
 import md5 from 'md5';
 
 import { User } from '../interfaces';
@@ -39,7 +38,7 @@ export const changeUser = ({ username, description }: Partial<User>) => {
     ...users.slice(userIndex + 1),
   ]);
 
-  return omit(updatedUser, ['password']);
+  return omitPassword(updatedUser);
 };
 
 export const removeUser = (username: string) => {
